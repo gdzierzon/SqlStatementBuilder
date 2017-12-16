@@ -2,18 +2,18 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("SqlBuilder.Test")]
+[assembly: AssemblyTitle("SqlStatementBuilder.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SqlBuilder.Test")]
+[assembly: AssemblyProduct("SqlStatementBuilder.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("146a78c4-7969-4ac9-9935-cef4991e10dd")]
+[assembly: Guid("0fcef7a4-4c2e-4374-beba-82359e131e76")]
 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
