@@ -1,0 +1,9 @@
+
+SqlBuilder\.Test/bin/Debug/
+
+SqlBuilder\.Test/obj/Debug/
+/SqlStatementBuilder/bin/Debug/netstandard2.0
+/SqlStatementBuilder/obj
+/SqlStatementBuilder.Test/bin/Debug
+/SqlStatementBuilder.Test/obj/Debug
+/.vs/SqlBuilder/v15
