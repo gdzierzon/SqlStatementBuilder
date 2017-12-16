@@ -9,7 +9,9 @@ namespace SqlStatementBuilder.Statements.DML
     {
         private int? _top { get; set; }
 
-        internal SelectStatement() { }
+        internal SelectStatement()
+            :base("SELECT")
+        { }
 
         public SelectStatement Top(int rows)
         {
@@ -17,11 +19,7 @@ namespace SqlStatementBuilder.Statements.DML
             return this;
         }
 
-        public SelectStatement Count(string column)
-        {
-            ColumnNames.Add($"COUNT({column})");
-            return this;
-        }
+        #region Columns
 
         public SelectStatement Columns(params object[] columns)
         {
@@ -29,11 +27,51 @@ namespace SqlStatementBuilder.Statements.DML
             return this;
         }
 
+        #region Aggregates
+
+        public SelectStatement Count(string column)
+        {
+            ColumnNames.Add($"COUNT({column})");
+            return this;
+        }
+
+        public SelectStatement Sum(string column)
+        {
+            ColumnNames.Add($"SUM({column})");
+            return this;
+        }
+
+        public SelectStatement Average(string column)
+        {
+            ColumnNames.Add($"AVG({column})");
+            return this;
+        }
+
+        public SelectStatement Min(string column)
+        {
+            ColumnNames.Add($"MIN({column})");
+            return this;
+        }
+
+        public SelectStatement Max(string column)
+        {
+            ColumnNames.Add($"MAX({column})");
+            return this;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Tables
+
         public SelectStatement From(string table)
         {
             TableName = table;
             return this;
         }
+
+        #endregion
 
         #region Conditions
 

@@ -8,11 +8,12 @@ namespace SqlStatementBuilder.Statements.DML
         private List<string> _values { get; set; }
 
         internal InsertStatement()
+            : base("INSERT INTO")
         {
             _values = new List<string>();
         }
 
-        public InsertStatement Into(string table)
+        internal InsertStatement Table(string table)
         {
             TableName = table;
             return this;
@@ -40,11 +41,11 @@ namespace SqlStatementBuilder.Statements.DML
 
         public override string ToString()
         {
-            StringBuilder statement = new StringBuilder("INSERT");
+            StringBuilder statement = new StringBuilder(Action);
 
             if (TableName != null && !TableName.Equals(string.Empty))
             {
-                statement.Append($" INTO {TableName}");
+                statement.Append($" {TableName}");
             }
 
             if(ColumnNames.Count > 0)

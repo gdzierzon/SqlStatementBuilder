@@ -7,12 +7,14 @@ namespace SqlStatementBuilder.Statements.DML
 
     public abstract class DmlStatement
     {
+        protected string Action { get; set; }
         protected string TableName { get; set; }
         protected List<string> ColumnNames { get; set; }
         protected List<string> Conditions { get; set; }
 
-        protected DmlStatement()
+        protected DmlStatement(string action)
         {
+            Action = action;
             ColumnNames = new List<string>();
             Conditions = new List<string>();
         }

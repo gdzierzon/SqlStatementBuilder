@@ -13,23 +13,6 @@ namespace SqlStatementBuilder.Test.Insert
     {
 
         [TestMethod]
-        public void Create_Insert()
-        {
-
-            //Arrange
-            var expected = "INSERT";
-
-            //Act
-            var actual = SqlBuilder.Insert.ToString();
-
-            //Assert
-            Specify.That(actual).Should.BeEqualTo(expected);
-
-
-        }
-
-
-        [TestMethod]
         public void Create_Insert_WithInsertHeader()
         {
 
@@ -37,8 +20,7 @@ namespace SqlStatementBuilder.Test.Insert
             var expected = "INSERT INTO Table";
 
             //Act
-            var actual = SqlBuilder.Insert
-                .Into("Table")
+            var actual = SqlBuilder.Insert("Table")
                 .ToString();
 
             //Assert
@@ -56,8 +38,7 @@ namespace SqlStatementBuilder.Test.Insert
             var expected = "INSERT INTO Table (one, two, three)";
 
             //Act
-            var actual = SqlBuilder.Insert
-                .Into("Table")
+            var actual = SqlBuilder.Insert("Table")
                 .Columns("one", "two", "three")
                 .ToString();
 
@@ -76,8 +57,7 @@ namespace SqlStatementBuilder.Test.Insert
             var expected = "INSERT INTO Table VALUES ('one', 1, 'eins')";
 
             //Act
-            var actual = SqlBuilder.Insert
-                .Into("Table")
+            var actual = SqlBuilder.Insert("Table")
                 .Values("'one'", "1", "'eins'")
                 .ToString();
 

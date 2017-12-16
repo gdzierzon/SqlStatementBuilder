@@ -8,3 +8,6 @@ SqlBuilder\.Test/obj/Debug/
 /SqlStatementBuilder.Test/obj/Debug
 /.vs/SqlBuilder/v15
 /.vs/SqlStatementBuilder/v15
+/SqlStatementBuilder/bin/Release
+/SqlStatementBuilder.Test/bin/Release
+/SqlStatementBuilder.Test/obj/Release
