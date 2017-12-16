@@ -31,7 +31,7 @@ var query = SqlBuilder.Select
                 .From("TableName")
 				.ToString();
 ```
-If you prefer to keep your columns on separate lines you can also pass an comma separated list of names/expressions
+If you prefer to keep your columns on separate lines you can also pass a comma separated list of names/expressions as the input parameters.
 ```				
  var query = SqlBuilder.Select
                 .Columns(
