@@ -45,6 +45,25 @@ namespace SqlStatementBuilder.Builders
 
         #endregion
 
+        #region Update
+        #endregion
+
+        #region Delete
+
+        public static DeleteStatement Delete()
+        {
+            var query = new DeleteStatement();
+            return query;
+
+        }
+
+        public static DeleteStatement Delete(string tableName)
+        {
+            var query = Delete().Table(tableName);
+            return query;
+
+        }
+        #endregion
 
         #region Truncate
 

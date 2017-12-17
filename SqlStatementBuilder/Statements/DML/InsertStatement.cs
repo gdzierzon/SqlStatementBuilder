@@ -13,7 +13,7 @@ namespace SqlStatementBuilder.Statements.DML
             _values = new List<string>();
         }
 
-        internal InsertStatement Table(string table)
+        public InsertStatement Table(string table)
         {
             TableName = table;
             return this;
@@ -41,26 +41,26 @@ namespace SqlStatementBuilder.Statements.DML
 
         public override string ToString()
         {
-            StringBuilder statement = new StringBuilder(Action);
+            StringBuilder query = new StringBuilder(Action);
 
             if (TableName != null && !TableName.Equals(string.Empty))
             {
-                statement.Append($" {TableName}");
+                query.Append($" {TableName}");
             }
 
             if(ColumnNames.Count > 0)
             {
                 var columns = string.Join(", ", ColumnNames.ToArray());
-                statement.Append($" ({columns})");
+                query.Append($" ({columns})");
             }
 
             if (_values.Count > 0)
             {
                 var values = string.Join(", ", _values.ToArray());
-                statement.Append($" VALUES ({values})");
+                query.Append($" VALUES ({values})");
             }
 
-            return statement.ToString();
+            return query.ToString();
         }
     }
 }

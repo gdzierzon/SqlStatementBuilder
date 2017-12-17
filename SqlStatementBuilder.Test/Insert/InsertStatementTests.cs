@@ -13,7 +13,7 @@ namespace SqlStatementBuilder.Test.Insert
     {
 
         [TestMethod]
-        public void Create_Insert_WithInsertHeader()
+        public void Insert_WithHeader()
         {
 
             //Arrange
@@ -31,7 +31,7 @@ namespace SqlStatementBuilder.Test.Insert
 
 
         [TestMethod]
-        public void Create_Insert_WithColumns()
+        public void Insert_WithColumns()
         {
 
             //Arrange
@@ -50,7 +50,7 @@ namespace SqlStatementBuilder.Test.Insert
 
 
         [TestMethod]
-        public void Create_Insert_WithValues()
+        public void Insert_WithValues()
         {
 
             //Arrange

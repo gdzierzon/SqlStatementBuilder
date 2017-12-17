@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions\ConditionHelperTests.cs" />
+    <Compile Include="Delete\DeleteStatementTests.cs" />
     <Compile Include="Insert\InsertStatementTests.cs" />
+    <Compile Include="Maintenance\DbccTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Select\SelectStatementTests.cs" />
   </ItemGroup>
