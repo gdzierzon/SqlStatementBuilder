@@ -21,20 +21,22 @@ The initial commit of the **SqlStatementBuilder** includes basic implementation 
 ### Examples
 **Select**
 ```
-var query = SqlBuilder.Select
-                .Columns("*")
+var query = new Select("*")
                 .From("TableName")
 				.ToString();
 				
-var query = SqlBuilder.Select
+var query = new Select("Id, Name, Phone")
+                .From("TableName")
+				.ToString();
+				
+var query = new Select()
                 .Columns("Id, Name, Phone")
                 .From("TableName")
 				.ToString();
 ```
 If you prefer to keep your columns on separate lines you can also pass a comma separated list of names/expressions as the input parameters.
 ```				
- var query = SqlBuilder.Select
-                .Columns(
+ var query = new Select(
                     "Id", 
                     "Name", 
                     "Phone"
