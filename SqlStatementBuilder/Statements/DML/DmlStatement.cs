@@ -32,5 +32,33 @@ namespace SqlStatementBuilder.Statements.DML
             Conditions.Add(condition);
         }
 
+        #region Conditions
+
+        public DmlStatement Where(string condition)
+        {
+            AddCondition(Condition.Where(condition));
+            return this;
+        }
+
+        public DmlStatement WhereNot(string condition)
+        {
+            AddCondition(Condition.WhereNot(condition));
+            return this;
+        }
+
+        public DmlStatement And(string condition)
+        {
+            AddCondition(Condition.And(condition));
+            return this;
+        }
+
+        public DmlStatement AndNot(string condition)
+        {
+            AddCondition(Condition.AndNot(condition));
+            return this;
+        }
+
+        #endregion
+
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlStatementBuilder.Statements.Maintenance;
-using Testing.Specificity;
 
 namespace SqlStatementBuilder.Test.Maintenance
 {
@@ -17,7 +17,7 @@ namespace SqlStatementBuilder.Test.Maintenance
             var query = Dbcc.Reseed("dbo.Table");
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(query);
+            query.Should().Be(expected);
         }
         [TestMethod]
         public void Reseed_TableWithNewSeed()
@@ -29,7 +29,7 @@ namespace SqlStatementBuilder.Test.Maintenance
             var query = Dbcc.Reseed("dbo.Table", 1);
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(query);
+            query.Should().Be(expected);
         }
     }
 }
