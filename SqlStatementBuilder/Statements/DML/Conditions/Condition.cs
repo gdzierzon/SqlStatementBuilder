@@ -1,4 +1,7 @@
-﻿namespace SqlStatementBuilder.Statements.DML.Conditions
+﻿using System;
+using System.Linq;
+
+namespace SqlStatementBuilder.Statements.DML.Conditions
 {
     public static class Condition
     {
@@ -35,6 +38,30 @@
         {
             var combinedConditions = string.Join(" ", conditions);
             return $"({combinedConditions})";
+        }
+
+        public static string Combine(params int[] conditions)
+        {
+            var stringConditions = conditions.Select(c => c.ToString()).ToArray();
+            return Combine(stringConditions);
+        }
+
+        public static string Combine(params double[] conditions)
+        {
+            var stringConditions = conditions.Select(c => c.ToString()).ToArray();
+            return Combine(stringConditions);
+        }
+
+        public static string Combine(params decimal[] conditions)
+        {
+            var stringConditions = conditions.Select(c => c.ToString()).ToArray();
+            return Combine(stringConditions);
+        }
+
+        public static string Combine(params DateTime[] conditions)
+        {
+            var stringConditions = conditions.Select(c => $"'{c:s}'").ToArray();
+            return Combine(stringConditions);
         }
     }
 }

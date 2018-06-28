@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlStatementBuilder.Builders;
-using Testing.Specificity;
 
 namespace SqlStatementBuilder.Test.Delete
 {
@@ -18,8 +18,9 @@ namespace SqlStatementBuilder.Test.Delete
                 .ToString();
 
             //assert
-            Specify.That(query).Should.BeEqualTo(expected);
+            query.Should().Be(expected);
         }
+
         [TestMethod]
         public void Delete_TableWithWhere()
         {
@@ -32,7 +33,7 @@ namespace SqlStatementBuilder.Test.Delete
                 .ToString();
 
             //assert
-            Specify.That(query).Should.BeEqualTo(expected);
+            query.Should().Be(expected);
         }
 
     }

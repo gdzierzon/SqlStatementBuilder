@@ -1,6 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlStatementBuilder.Statements.DML.Conditions;
-using Testing.Specificity;
 
 namespace SqlStatementBuilder.Test.Conditions
 {
@@ -17,7 +18,7 @@ namespace SqlStatementBuilder.Test.Conditions
             var actual = Condition.Combine("one", "two", "three");
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(actual);
+            actual.Should().Be(expected);
         }
 
         [TestMethod]
@@ -31,22 +32,22 @@ namespace SqlStatementBuilder.Test.Conditions
                                             Condition.And("two"));
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(actual);
+            actual.Should().Be(expected);
         }
 
         [TestMethod]
         public void Combine_ConditionWithAndOr()
         {
             //arrange
-            var expected = "(one AND two OR three)";
+            var expected = "(col1 = 'one' AND col2 = 'two' OR col3 = 3)";
 
             //act
-            var actual = Condition.Combine("one",
-                Condition.And("two"),
-                Condition.Or("three"));
+            var actual = Condition.Combine("col1 = 'one'",
+                Condition.And("col2 = 'two'"),
+                Condition.Or("col3 = 3"));
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(actual);
+            actual.Should().Be(expected);
         }
 
         [TestMethod]
@@ -64,7 +65,22 @@ namespace SqlStatementBuilder.Test.Conditions
                                         );
 
             //assert
-            Specify.That(expected).Should.BeEqualTo(actual);
+            actual.Should().Be(expected);
+        }
+
+        [TestMethod]
+        public void Combine_Dates()
+        {
+            //arrange
+            var expected = "('1974-05-22T11:30:00','2001-11-05T01:30:00')";
+            var date1 = DateTime.Parse("1974-05-22 11:30");
+            var date2 = DateTime.Parse("2001-11-05 01:30");
+
+            //act
+            var actual = Condition.Combine(date1,date2);
+
+            //assert
+            actual.Should().Be(expected);
         }
 
     }

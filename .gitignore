@@ -11,3 +11,7 @@ SqlBuilder\.Test/obj/Debug/
 /SqlStatementBuilder/bin/Release
 /SqlStatementBuilder.Test/bin/Release
 /SqlStatementBuilder.Test/obj/Release
+/packages
+/SqlStatementBuilder/bin
+/SqlStatementBuilder.Test/bin
+/TestResults
