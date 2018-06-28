@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlStatementBuilder.Statements.DML;
-using SqlStatementBuilder.Statements.DML.Conditions;
+using SqlStatementBuilder.Statements.DML.Extensions;
 
 namespace SqlStatementBuilder.Test.SelectStatements
 {
@@ -37,7 +37,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
             var actual = new Select("*")
                 .From("Customers AS c")
                 .Join("Orders AS o")
-                .On(Condition.Combine("c.CustomerId = o.CustomerId",Condition.And("c.Country = 'USA'")))
+                .On("c.CustomerId = o.CustomerId".And("c.Country = 'USA'"))
                 .ToString();
 
             //Assert
