@@ -10,7 +10,8 @@ namespace SqlStatementBuilder.Statements.DML.Extensions
         public static string[] And(this string clause, string condition)
         {
             var list = ClauseList.ToList();
-            list.Add( $"{clause} AND {condition}");
+            list.Add(clause);
+            list.Add( $"AND {condition}");
             return list.ToArray();
         }
 
@@ -24,7 +25,8 @@ namespace SqlStatementBuilder.Statements.DML.Extensions
         public static string[] AndNot(this string clause, string condition)
         {
             var list = ClauseList.ToList();
-            list.Add( $"{clause} AND NOT {condition}");
+            list.Add(clause);
+            list.Add( $"AND NOT {condition}");
             return list.ToArray();
         }
 
@@ -38,7 +40,8 @@ namespace SqlStatementBuilder.Statements.DML.Extensions
         public static string[] Or(this string clause, string condition)
         {
             var list = ClauseList.ToList();
-            list.Add( $"{clause} OR {condition}");
+            list.Add(clause);
+            list.Add($"OR {condition}");
             return list.ToArray();
         }
 
@@ -52,7 +55,8 @@ namespace SqlStatementBuilder.Statements.DML.Extensions
         public static string[] OrNot(this string clause, string condition)
         {
             var list = ClauseList.ToList();
-            list.Add( $"{clause} OR NOT {condition}");
+            list.Add(clause);
+            list.Add($"OR NOT {condition}");
             return list.ToArray();
         }
 
