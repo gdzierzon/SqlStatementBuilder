@@ -8,9 +8,9 @@ This solution has 2 projects: SqlStqatementBuilder and SqlStatementBuilder.Test.
 
 ### Prerequisites
 
-This solution was built using Visual Studio 2017 (any edition will work).
+This solution was built using Visual Studio 2017.
 
-The test project uses MSTest and Specificity for MSTest. The Specificity package will download from NuGet when the project is compiled.
+The test project uses MSTest with FluidAssertions. The FluidAssertions dependencies will be downloaded from NuGet when the project is compiled.
 
 ### Using the SqlStatementBuilder
 
@@ -19,6 +19,8 @@ The entry point of each statment is the **SqlBuilder**. In order to make the syn
 The initial commit of the **SqlStatementBuilder** includes basic implementation of 2 SQL DML statement types: **INSERT** and **SELECT**.
 
 ### Examples
+For more in depth examples please refer to the the unit tests.
+
 **Select**
 ```
 var query = new Select("*")
