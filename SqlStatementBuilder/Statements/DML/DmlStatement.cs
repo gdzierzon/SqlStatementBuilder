@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SqlStatementBuilder.Statements.DML.Conditions;
 using SqlStatementBuilder.Statements.DML.Enumerations;
 
 namespace SqlStatementBuilder.Statements.DML
@@ -36,25 +35,83 @@ namespace SqlStatementBuilder.Statements.DML
 
         public DmlStatement Where(string condition)
         {
-            AddCondition(Condition.Where(condition));
+            AddCondition($"WHERE {condition}");
             return this;
         }
 
         public DmlStatement WhereNot(string condition)
         {
-            AddCondition(Condition.WhereNot(condition));
+            AddCondition($"WHERE NOT {condition}");
             return this;
         }
 
         public DmlStatement And(string condition)
         {
-            AddCondition(Condition.And(condition));
+            AddCondition($"AND {condition}");
             return this;
         }
 
         public DmlStatement AndNot(string condition)
         {
-            AddCondition(Condition.AndNot(condition));
+            AddCondition($"AND NOT {condition}");
+            return this;
+        }
+
+        public DmlStatement Or(string condition)
+        {
+            AddCondition($"OR {condition}");
+            return this;
+        }
+
+        public DmlStatement OrNot(string condition)
+        {
+            AddCondition($"OR NOT {condition}");
+            return this;
+        }
+
+        #endregion
+
+        #region Conditions
+
+        public DmlStatement Where(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"WHERE ({condition})");
+            return this;
+        }
+
+        public DmlStatement WhereNot(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"WHERE NOT ({condition})");
+            return this;
+        }
+
+        public DmlStatement And(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"AND ({condition})");
+            return this;
+        }
+
+        public DmlStatement AndNot(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"AND NOT ({condition})");
+            return this;
+        }
+
+        public DmlStatement Or(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"OR ({condition})");
+            return this;
+        }
+
+        public DmlStatement OrNot(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            AddCondition($"OR NOT ({condition})");
             return this;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using SqlStatementBuilder.Statements.DML.Conditions;
 
 namespace SqlStatementBuilder.Statements.DML
 {
@@ -16,34 +15,6 @@ namespace SqlStatementBuilder.Statements.DML
             TableName = table;
             return this;
         }
-
-        #region Conditions
-
-        public DeleteStatement Where(string condition)
-        {
-            AddCondition(Condition.Where(condition));
-            return this;
-        }
-
-        public DeleteStatement WhereNot(string condition)
-        {
-            AddCondition(Condition.WhereNot(condition));
-            return this;
-        }
-
-        public DeleteStatement And(string condition)
-        {
-            AddCondition(Condition.And(condition));
-            return this;
-        }
-
-        public DeleteStatement AndNot(string condition)
-        {
-            AddCondition(Condition.AndNot(condition));
-            return this;
-        }
-
-        #endregion
 
         public override string ToString()
         {

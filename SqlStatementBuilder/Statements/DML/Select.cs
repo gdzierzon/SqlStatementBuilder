@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using SqlStatementBuilder.Statements.DML.Conditions;
 using SqlStatementBuilder.Statements.DML.Enumerations;
 
 namespace SqlStatementBuilder.Statements.DML
@@ -103,6 +102,13 @@ namespace SqlStatementBuilder.Statements.DML
 
         public Select On(string condition)
         {
+            joinConditions.Add(condition);
+            return this;
+        }
+
+        public Select On(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
             joinConditions.Add(condition);
             return this;
         }

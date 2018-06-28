@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SqlStatementBuilder.Statements.DML.Conditions;
 using SqlStatementBuilder.Statements.DML;
+using SqlStatementBuilder.Statements.DML.Extensions;
 
 namespace SqlStatementBuilder.Test.SelectStatements
 {
@@ -201,9 +201,105 @@ namespace SqlStatementBuilder.Test.SelectStatements
             var actual = new Select("*")
                 .From("Books")
                 .Where("Category = 'cooking'")
-                .And(Condition.Combine("Name LIKE 'Steak%'",
-                    Condition.Or("Price > 15")
-                ))
+                .And("Name LIKE 'Steak%'".Or("Price > 15"))
+                .ToString();
+
+            //Assert
+            actual.Should().Be(expected);
+
+        }
+
+        [TestMethod]
+        public void Select_WhereWithConstants()
+        {
+
+            //Arrange
+            var expected = "SELECT * FROM Books WHERE (Category = 'cooking' AND Price > 15)";
+
+            //Act
+            var actual = new Select("*")
+                .From("Books")
+                .Where("Category = 'cooking'",
+                    "AND",
+                    "Price > 15")
+                .ToString();
+
+            //Assert
+            actual.Should().Be(expected);
+
+        }
+
+        [TestMethod]
+        public void Select_WhereWithEqualityStringComparison()
+        {
+
+            //Arrange
+            var expected = "SELECT * FROM Books WHERE Category = 'cooking'";
+
+            //Act
+            var actual = new Select("*")
+                .From("Books")
+                .Where("Category".IsEqualTo("cooking"))
+                .ToString();
+
+            //Assert
+            actual.Should().Be(expected);
+
+        }
+
+        [TestMethod]
+        public void Select_WhereWithEqualityNumericComparison()
+        {
+
+            //Arrange
+            var expected = "SELECT * FROM Books WHERE Price = 15.5";
+
+            //Act
+            var actual = new Select("*")
+                .From("Books")
+                .Where("Price".IsEqualTo(15.5))
+                .ToString();
+
+            //Assert
+            actual.Should().Be(expected);
+
+        }
+
+        [TestMethod]
+        public void Select_WhereWithComparisons()
+        {
+
+            //Arrange
+            var expected = "SELECT * FROM Books WHERE (Category = 'cooking' AND Price > 15)";
+
+            //Act
+            var actual = new Select("*")
+                .From("Books")
+                .Where(
+                    "Category".IsEqualTo("cooking")
+                    .And("Price".IsGreaterThan(15))
+                ).ToString();
+
+            //Assert
+            actual.Should().Be(expected);
+
+        }
+
+        [TestMethod]
+        public void Select_WhereAndOr_UsingComparisonExtensions()
+        {
+
+            //Arrange
+            var expected = "SELECT * FROM Books WHERE Category = 'cooking' AND (Name LIKE 'Steak%' OR Price > 15)";
+
+            //Act
+            var actual = new Select("*")
+                .From("Books")
+                .Where("Category".IsEqualTo("cooking"))
+                .And(
+                    "Name".IsLike("Steak%")
+                    .Or("Price".IsGreaterThan(15))
+                )
                 .ToString();
 
             //Assert
