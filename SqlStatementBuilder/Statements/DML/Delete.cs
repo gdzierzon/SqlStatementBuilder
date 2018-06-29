@@ -2,18 +2,17 @@
 
 namespace SqlStatementBuilder.Statements.DML
 {
-    public class DeleteStatement: DmlStatement
+    public class Delete: DmlStatement
     {
-        internal DeleteStatement()
+        public Delete()
             :base("DELETE FROM")
         {
             
         }
-
-        public DeleteStatement Table(string table)
+        public Delete(string table)
+            :base("DELETE FROM")
         {
             TableName = table;
-            return this;
         }
 
         public override string ToString()

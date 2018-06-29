@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SqlStatementBuilder.Statements.DML.Enumerations;
 
 namespace SqlStatementBuilder.Statements.DML
 {
@@ -8,13 +7,13 @@ namespace SqlStatementBuilder.Statements.DML
     {
         protected string Action { get; set; }
         protected string TableName { get; set; }
-        protected List<string> ColumnNames { get; set; }
+        protected List<object> TableColumns { get; set; }
         protected List<string> Conditions { get; set; }
 
         protected DmlStatement(string action)
         {
             Action = action;
-            ColumnNames = new List<string>();
+            TableColumns = new List<object>();
             Conditions = new List<string>();
         }
 
@@ -22,7 +21,7 @@ namespace SqlStatementBuilder.Statements.DML
         {
             foreach (var column in columns)
             {
-                ColumnNames.Add(column.ToString());
+                TableColumns.Add(column);
             }
         }
         

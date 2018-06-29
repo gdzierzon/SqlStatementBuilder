@@ -290,16 +290,12 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT * FROM Books WHERE Category = 'cooking' AND (Name LIKE 'Steak%' OR Price > 15)";
+            var expected = "SELECT * FROM Books WHERE Price BETWEEN 10 AND 20";
 
             //Act
             var actual = new Select("*")
                 .From("Books")
-                .Where("Category".IsEqualTo("cooking"))
-                .And(
-                    "Name".IsLike("Steak%")
-                    .Or("Price".IsGreaterThan(15))
-                )
+                .Where("Price".Between(10,20))
                 .ToString();
 
             //Assert
