@@ -59,10 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions\ConditionHelperTests.cs" />
-    <Compile Include="Delete\DeleteStatementTests.cs" />
+    <Compile Include="DeleteStatements\DeleteStatementTests.cs" />
     <Compile Include="InsertStatements\InsertStatementTests.cs" />
     <Compile Include="Maintenance\DbccTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectStatements\SelectBuilderTests.cs" />
     <Compile Include="SelectStatements\SelectJoinTests.cs" />
     <Compile Include="SelectStatements\SelectStatementTests.cs" />
   </ItemGroup>

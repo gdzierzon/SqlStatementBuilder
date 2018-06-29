@@ -31,7 +31,7 @@ namespace SqlStatementBuilder.Test.Conditions
         public void Combine_ConditionWithAndOr()
         {
             //arrange
-            var expected = new List<string>() {"one", "AND two", "OR three"};
+            var expected = new List<string>() {"col1 = 'one'", "AND col2 = 'two'", "OR col3 = 3"};
 
             //act
             var actual = "col1 = 'one'"

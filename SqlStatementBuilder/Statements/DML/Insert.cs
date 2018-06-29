@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SqlStatementBuilder.Statements.DML
 {
@@ -55,10 +56,11 @@ namespace SqlStatementBuilder.Statements.DML
                 query.Append($" {TableName}");
             }
 
-            if(ColumnNames.Count > 0)
+            if (TableColumns.Count > 0)
             {
-                var columns = string.Join(", ", ColumnNames.ToArray());
-                query.Append($" ({columns})");
+                var columnNames = TableColumns.Select(c => c.ToString()).ToList();
+                var columns = string.Join(", ", columnNames.ToArray());
+                query.Append($" {columns}");
             }
 
             if (values.Count > 0)

@@ -1,4 +1,6 @@
-﻿namespace SqlStatementBuilder.Statements.DML.Extensions
+﻿using System;
+
+namespace SqlStatementBuilder.Statements.DML.Extensions
 {
     public static class ComparisonExtensions
     {
@@ -51,5 +53,11 @@
         {
             return $"{item} <= {expectedValue}";
         } 
+        
+
+        public static string Between<T>(this string item, T left, T right)
+        {
+            return $"{item} BETWEEN {left} AND {right}";
+        }
     }
 }

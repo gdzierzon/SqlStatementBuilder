@@ -7,17 +7,17 @@ namespace SqlStatementBuilder.Statements.DML.Extensions
     {
         private static IEnumerable<string> ClauseList => new List<string>();
 
-        public static string[] And(this string clause, string condition)
+        public static string[] And<T>(this T clause, T condition)
         {
             var list = ClauseList.ToList();
-            list.Add(clause);
+            list.Add(clause.ToString());
             list.Add( $"AND {condition}");
             return list.ToArray();
         }
 
-        public static string[] And(this IEnumerable<string> enumerable, string condition)
+        public static string[] And<T>(this IEnumerable<T> enumerable, T condition)
         {
-            var list = enumerable.ToList();
+            var list = enumerable.Select(e => e.ToString()).ToList();
             list.Add($"AND {condition}");
             return list.ToArray();
         }

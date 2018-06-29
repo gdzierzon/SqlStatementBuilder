@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SqlStatementBuilder.Builders;
+using SqlStatementBuilder.Statements.DML;
 
-namespace SqlStatementBuilder.Test.Delete
+namespace SqlStatementBuilder.Test.DeleteStatements
 {
     [TestClass]
     public class DeleteStatementTests
@@ -14,7 +14,7 @@ namespace SqlStatementBuilder.Test.Delete
             var expected = "DELETE FROM Table";
 
             //act
-            var query = SqlBuilder.Delete("Table")
+            var query = new Delete("Table")
                 .ToString();
 
             //assert
@@ -28,7 +28,7 @@ namespace SqlStatementBuilder.Test.Delete
             var expected = "DELETE FROM Products WHERE Price > 100";
 
             //act
-            var query = SqlBuilder.Delete("Products")
+            var query = new Delete("Products")
                 .Where("Price > 100")
                 .ToString();
 

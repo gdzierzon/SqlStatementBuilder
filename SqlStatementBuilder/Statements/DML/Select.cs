@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using SqlStatementBuilder.Statements.DML.Enumerations;
 
 namespace SqlStatementBuilder.Statements.DML
 {
@@ -9,6 +9,7 @@ namespace SqlStatementBuilder.Statements.DML
         private int? top;
         private readonly List<string> joinTables = new List<string>();
         private readonly List<string> joinConditions = new List<string>();
+        private readonly List<object> orderByColumns = new List<object>();
 
         public Select()
             :base("SELECT")
@@ -36,33 +37,33 @@ namespace SqlStatementBuilder.Statements.DML
 
         #region Aggregates
 
-        public Select Count(string column)
+        public Select Count(object column)
         {
-            ColumnNames.Add($"COUNT({column})");
+            TableColumns.Add($"COUNT({column})");
             return this;
         }
 
-        public Select Sum(string column)
+        public Select Sum(object column)
         {
-            ColumnNames.Add($"SUM({column})");
+            TableColumns.Add($"SUM({column})");
             return this;
         }
 
-        public Select Average(string column)
+        public Select Average(object column)
         {
-            ColumnNames.Add($"AVG({column})");
+            TableColumns.Add($"AVG({column})");
             return this;
         }
 
-        public Select Min(string column)
+        public Select Min(object column)
         {
-            ColumnNames.Add($"MIN({column})");
+            TableColumns.Add($"MIN({column})");
             return this;
         }
 
-        public Select Max(string column)
+        public Select Max(object column)
         {
-            ColumnNames.Add($"MAX({column})");
+            TableColumns.Add($"MAX({column})");
             return this;
         }
 
@@ -72,9 +73,9 @@ namespace SqlStatementBuilder.Statements.DML
 
         #region Tables
 
-        public Select From(string table)
+        public Select From(object table)
         {
-            TableName = table;
+            TableName = table.ToString();
             return this;
         }
 
@@ -82,19 +83,19 @@ namespace SqlStatementBuilder.Statements.DML
 
         #region Joins
 
-        public Select Join(string table)
+        public Select Join(object table)
         {
             joinTables.Add($"INNER JOIN {table}");
             return this;
         }
 
-        public Select LeftJoin(string table)
+        public Select LeftJoin(object table)
         {
             joinTables.Add($"LEFT OUTER JOIN {table}");
             return this;
         }
 
-        public Select RightJoin(string table)
+        public Select RightJoin(object table)
         {
             joinTables.Add($"RIGHT OUTER JOIN {table}");
             return this;
@@ -115,6 +116,19 @@ namespace SqlStatementBuilder.Statements.DML
 
         #endregion
 
+        #region Order
+        
+        public Select OrderBy(params object[] columns)
+        {
+            foreach (var column in columns)
+            {
+                orderByColumns.Add(column);
+            }
+            return this;
+        }
+
+        #endregion
+
         public override string ToString()
         {
             //select
@@ -125,9 +139,10 @@ namespace SqlStatementBuilder.Statements.DML
                 query.Append($" TOP {top}");
             }
 
-            if (ColumnNames.Count > 0)
+            if (TableColumns.Count > 0)
             {
-                var columns = string.Join(", ", ColumnNames.ToArray());
+                var columnNames = TableColumns.Select(c => c.ToString()).ToList();
+                var columns = string.Join(", ", columnNames.ToArray());
                 query.Append($" {columns}");
             }
 
@@ -156,6 +171,12 @@ namespace SqlStatementBuilder.Statements.DML
             //having
 
             //order by
+            if (orderByColumns.Count > 0)
+            {
+                var columns = orderByColumns.Select(c => c.ToString()).ToList();
+                var orderBy = string.Join(", ", columns);
+                query.Append($" ORDER BY {orderBy}");
+            }
 
             return query.ToString();
         }

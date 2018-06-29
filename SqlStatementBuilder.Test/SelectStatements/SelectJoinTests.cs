@@ -31,7 +31,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT * FROM Customers AS c INNER JOIN Orders AS o ON (c.CustomerId = o.CustomerId AND c.Country = 'USA')";
+            var expected = "SELECT * FROM Customers AS c INNER JOIN Orders AS o ON c.CustomerId = o.CustomerId AND c.Country = 'USA'";
 
             //Act
             var actual = new Select("*")
