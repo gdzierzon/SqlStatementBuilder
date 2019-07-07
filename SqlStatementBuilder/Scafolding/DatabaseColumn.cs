@@ -8,7 +8,7 @@
 
         public DatabaseColumn As(string alias)
         {
-            Alias = alias;
+            Alias = alias.Trim();
             return this;
         }
 
@@ -21,7 +21,7 @@
         {
             get
             {
-                if (Table.Alias != null && Table.Alias.Trim() != "")
+                if (!string.IsNullOrEmpty(Table.Alias))
                 {
                     return $"{Table.Alias}.{ColumnName}";
                 }
@@ -30,9 +30,9 @@
             }
         }
         
-        public string Between<T>(T left, T right)
+        public string Between<T>(T min, T max)
         {
-            return $"{AliasedColumn} BETWEEN {left} AND {right}";
+            return $"{AliasedColumn} BETWEEN {min} AND {max}";
         }
 
         public string IsEqualTo<T>(T expectedValue) 
