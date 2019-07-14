@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,7 @@ namespace SqlStatementBuilder.Statements.DML
     public class Insert: DmlStatement
     {
         private readonly List<string> values;
+        private Select select { get; set; }
 
         public Insert()
             : base("INSERT INTO")
@@ -14,16 +16,16 @@ namespace SqlStatementBuilder.Statements.DML
             values = new List<string>();
         }
 
-        public Insert(string table)
+        public Insert(object table)
             : base("INSERT INTO")
         {
             values = new List<string>();
             Table(table);
         }
 
-        public Insert Table(string table)
+        public Insert Table(object table)
         {
-            TableName = table;
+            TableName = table.ToString();
             return this;
         }
 
@@ -37,36 +39,50 @@ namespace SqlStatementBuilder.Statements.DML
         {
             foreach (var value in insertValues)
             {
-                this.values.Add(value.ToString());
+                var type = value.GetType();
+                if (type == typeof(string) || type == typeof(DateTime))
+                {
+                    this.values.Add($"'{value}'");
+                }
+                else
+                {
+                    this.values.Add(value.ToString());
+                }
             }
             return this;
         }
 
         public Insert Select(Select select)
         {
+            this.select = select;
             return this;
         }
 
         public override string ToString()
         {
-            StringBuilder query = new StringBuilder(Action);
-
+            StringBuilder query = new StringBuilder($"{Action} ");
+            
             if (TableName != null && !TableName.Equals(string.Empty))
             {
-                query.Append($" {TableName}");
+                query.Append($"{TableName}");
             }
 
             if (TableColumns.Count > 0)
             {
                 var columnNames = TableColumns.Select(c => c.ToString()).ToList();
                 var columns = string.Join(", ", columnNames.ToArray());
-                query.Append($" {columns}");
+                query.Append($" ({columns})");
             }
 
             if (values.Count > 0)
             {
-                var values = string.Join(", ", this.values.ToArray());
-                query.Append($" VALUES ({values})");
+                var valuesString = string.Join(", ", this.values.ToArray());
+                query.Append($" VALUES ({valuesString})");
+            }
+
+            if (select != null)
+            {
+                query.Append($" {select}");
             }
 
             return query.ToString();

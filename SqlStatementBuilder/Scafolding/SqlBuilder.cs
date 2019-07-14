@@ -9,7 +9,7 @@ namespace SqlStatementBuilder.Scafolding
             return new Select(columns);
         }
 
-        protected Insert Insert(string table)
+        protected Insert Insert(object table)
         {
             return new Insert(table);
         }

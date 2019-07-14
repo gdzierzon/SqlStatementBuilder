@@ -23,10 +23,10 @@
             {
                 if (!string.IsNullOrEmpty(Table.Alias))
                 {
-                    return $"{Table.Alias}.{ColumnName}";
+                    return $"[{Table.Alias}].[{ColumnName}]";
                 }
 
-                return ColumnName;
+                return $"[{ColumnName}]";
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -83,6 +84,11 @@ namespace SqlStatementBuilder.Statements.DML
 
         #region Joins
 
+        public Select InnerJoin(object table)
+        {
+            return Join(table);
+        }
+
         public Select Join(object table)
         {
             joinTables.Add($"INNER JOIN {table}");
@@ -132,38 +138,39 @@ namespace SqlStatementBuilder.Statements.DML
         public override string ToString()
         {
             //select
-            StringBuilder query = new StringBuilder("SELECT");
+            StringBuilder query = new StringBuilder("SELECT ");
 
             if(top.HasValue)
             {
-                query.Append($" TOP {top}");
+                query.Append($"TOP {top} ");
             }
 
             if (TableColumns.Count > 0)
             {
                 var columnNames = TableColumns.Select(c => c.ToString()).ToList();
                 var columns = string.Join(", ", columnNames.ToArray());
-                query.Append($" {columns}");
+                query.Append($"{columns} ");
             }
 
-            //from
+            query.Append("FROM ");
+            
             if(TableName != null && !TableName.Equals(string.Empty))
             {
-                query.Append($" FROM {TableName}");
+                query.Append($"{TableName} ");
             }
             
             //join
             for (int i = 0; i < joinTables.Count; i++)
             {
-                query.Append($" {joinTables[i]}");
-                query.Append($" ON {joinConditions[i]}");
+                query.Append($"{joinTables[i]} ");
+                query.Append($"ON {joinConditions[i]} ");
             }
 
             //where
             if (Conditions.Count > 0)
             {
                 var conditions = string.Join(" ", Conditions.ToArray());
-                query.Append($" {conditions}");
+                query.Append($"{conditions} ");
             }
 
             //group by
@@ -175,10 +182,10 @@ namespace SqlStatementBuilder.Statements.DML
             {
                 var columns = orderByColumns.Select(c => c.ToString()).ToList();
                 var orderBy = string.Join(", ", columns);
-                query.Append($" ORDER BY {orderBy}");
+                query.Append($"ORDER BY {orderBy}");
             }
 
-            return query.ToString();
+            return query.ToString().TrimEnd(null);
         }
     }
 }

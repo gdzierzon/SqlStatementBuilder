@@ -11,9 +11,8 @@ namespace SqlStatementBuilder.Test.SelectStatements
         [TestMethod]
         public void Select_All()
         {
-
             //Arrange
-            var expected = "SELECT *";
+            var expected = "SELECT * FROM";
 
             //Act
             var actual = new Select("*")
@@ -30,7 +29,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT one, two, three";
+            var expected = "SELECT one, two, three FROM";
 
             //Act
             var actual = new Select(
@@ -50,7 +49,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT COUNT(*)";
+            var expected = "SELECT COUNT(*) FROM";
 
             //Act
             var actual = new Select()
@@ -67,7 +66,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT SUM(Price)";
+            var expected = "SELECT SUM(Price) FROM";
 
             //Act
             var actual = new Select()
@@ -84,7 +83,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT AVG(Price)";
+            var expected = "SELECT AVG(Price) FROM";
 
             //Act
             var actual = new Select()
@@ -101,7 +100,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT MIN(Price), MAX(Price)";
+            var expected = "SELECT MIN(Price), MAX(Price) FROM";
 
             //Act
             var actual = new Select()
@@ -120,7 +119,7 @@ namespace SqlStatementBuilder.Test.SelectStatements
         {
 
             //Arrange
-            var expected = "SELECT TOP 10 *";
+            var expected = "SELECT TOP 10 * FROM";
 
             //Act
             var actual = new Select()
