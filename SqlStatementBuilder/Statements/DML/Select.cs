@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SqlStatementBuilder.Scafolding;
 
 namespace SqlStatementBuilder.Statements.DML
 {
     public class Select: DmlStatement
     {
+        private bool distinct;
         private int? top;
         private readonly List<string> joinTables = new List<string>();
         private readonly List<string> joinConditions = new List<string>();
+        private readonly List<object> groupByColumns = new List<object>();
+        private string havingConditions;
         private readonly List<object> orderByColumns = new List<object>();
 
         public Select()
@@ -25,6 +29,12 @@ namespace SqlStatementBuilder.Statements.DML
         public Select Top(int rows)
         {
             top = rows;
+            return this;
+        }
+
+        public Select Distinct()
+        {
+            distinct = true;
             return this;
         }
 
@@ -122,8 +132,28 @@ namespace SqlStatementBuilder.Statements.DML
 
         #endregion
 
+        #region group by
+
+        public Select GroupBy(params object[] columns)
+        {
+            foreach (var column in columns)
+            {
+                groupByColumns.Add(column);
+            }
+            return this;
+        }
+
+        public Select Having(params string[] conditions)
+        {
+            var condition = string.Join(" ", conditions);
+            havingConditions = condition;
+            return this;
+        }
+
+        #endregion
+
         #region Order
-        
+
         public Select OrderBy(params object[] columns)
         {
             foreach (var column in columns)
@@ -139,6 +169,11 @@ namespace SqlStatementBuilder.Statements.DML
         {
             //select
             StringBuilder query = new StringBuilder("SELECT ");
+
+            if (distinct)
+            {
+                query.Append("DISTINCT ");
+            }
 
             if(top.HasValue)
             {
@@ -174,8 +209,17 @@ namespace SqlStatementBuilder.Statements.DML
             }
 
             //group by
+            if (groupByColumns.Count > 0)
+            {
+                var columns = string.Join(", ", groupByColumns.ToArray());
+                query.Append($"GROUP BY {columns} ");
+            }
 
             //having
+            if (!string.IsNullOrEmpty(havingConditions))
+            {
+                query.Append($"HAVING {havingConditions} ");
+            }
 
             //order by
             if (orderByColumns.Count > 0)

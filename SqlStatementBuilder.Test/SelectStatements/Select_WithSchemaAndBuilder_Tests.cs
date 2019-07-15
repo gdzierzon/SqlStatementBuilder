@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlStatementBuilder.Scafolding;
 using SqlStatementBuilder.Statements.DML.Extensions;
 using SqlStatementBuilder.Test.TestDatabase;
+using SqlStatementBuilder.Test.TestDatabase.Tables;
 
 namespace SqlStatementBuilder.Test.SelectStatements
 {
@@ -98,6 +99,65 @@ namespace SqlStatementBuilder.Test.SelectStatements
             //Assert
             actual.Should().Be(expected);
         }
-        
+
+        [TestMethod]
+        public void Select_GroupBy()
+        {
+            //arrange
+            var expected = "SELECT Count(*), [c].[Age] FROM [dbo].[Customer] AS [c] GROUP BY [c].[Age]";
+
+            var c = dbo.Customer;
+
+            //act
+            var actual = Select("Count(*)"
+                    , c.Age)
+                .From(dbo.Customer.As("c"))
+                .GroupBy(c.Age)
+                .ToString();
+
+            //assert
+            actual.Should().BeEquivalentTo(expected, "group by columns should be appended");
+        }
+
+        [TestMethod]
+        public void Select_GroupBy_WithHavingCount()
+        {
+            //arrange
+            var expected = "SELECT Count(*), [c].[Age] FROM [dbo].[Customer] AS [c] GROUP BY [c].[Age] HAVING Count(*) > 2";
+
+            var c = dbo.Customer;
+
+            //act
+            var actual = Select("Count(*)"
+                    , c.Age)
+                .From(dbo.Customer.As("c"))
+                .GroupBy(c.Age)
+                .Having("Count(*)".IsGreaterThan(2))
+                .ToString();
+
+            //assert
+            actual.Should().BeEquivalentTo(expected, "group by columns should be appended");
+        }
+
+        [TestMethod]
+        public void Select_GroupBy_WithHavingAvg()
+        {
+            //arrange
+            var expected = "SELECT AVG([c].[Age]), [c].[FirstName] FROM [dbo].[Customer] AS [c] GROUP BY [c].[FirstName] HAVING AVG([c].[Age]) > 20";
+
+            var c = dbo.Customer.As("c");
+
+            //act
+            var actual = Select(c.Age.Avg()
+                    , c.FirstName)
+                .From(dbo.Customer)
+                .GroupBy(c.FirstName)
+                .Having(c.Age.Avg().IsGreaterThan(20))
+                .ToString();
+
+            //assert
+            actual.Should().BeEquivalentTo(expected, "average column should be created");
+        }
+
     }
 }

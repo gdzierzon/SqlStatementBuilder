@@ -14,7 +14,7 @@ namespace SqlStatementBuilder.Test.InsertStatements
         {
 
             //Arrange
-            var expected = "INSERT INTO [Table]";
+            var expected = "INSERT INTO Table";
 
             //Act
             var actual = new Insert("Table")
@@ -81,7 +81,7 @@ namespace SqlStatementBuilder.Test.InsertStatements
 
             //Act
             var actual = new Insert("dbo.Table")
-                .Values("'one'", "1", "'eins'")
+                .Values("one", 1, "eins")
                 .ToString();
 
             //Assert

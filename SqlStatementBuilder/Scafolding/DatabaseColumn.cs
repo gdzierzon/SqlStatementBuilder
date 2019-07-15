@@ -49,5 +49,39 @@
         {
             return $"{AliasedColumn} DESC";
         }
+
+        #region aggregates
+
+        public string Aggregate(string function)
+        {
+            return $"{function.ToUpper()}({AliasedColumn})";
+        }
+
+        public string Count()
+        {
+            return Aggregate("COUNT");
+        }
+
+        public string Avg()
+        {
+            return Aggregate("AVG");
+        }
+
+        public string Min()
+        {
+            return Aggregate("MIN");
+        }
+
+        public string Max()
+        {
+            return Aggregate("MAX");
+        }
+
+        public string Sum()
+        {
+            return Aggregate("SUM");
+        }
+
+        #endregion
     }
 }

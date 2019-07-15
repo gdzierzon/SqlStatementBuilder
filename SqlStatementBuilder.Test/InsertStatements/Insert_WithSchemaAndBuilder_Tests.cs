@@ -82,16 +82,10 @@ namespace SqlStatementBuilder.Test.InsertStatements
 
             //Act
             var actual = Insert(dbo.Product)
-                .Columns(p.ProductId
-                    , p.ProductName
-                    , p.Price)
+                .Columns(p.ProductId, p.ProductName, p.Price)
                 .Select(
-                    new Select(p.ProductId
-                            ,p.ProductName
-                            ,p.Price
-                        )
-                        .From(p)
-                    )
+                    Select(p.ProductId, p.ProductName, p.Price)
+                    .From(p))
                 .ToString();
 
             //Assert
