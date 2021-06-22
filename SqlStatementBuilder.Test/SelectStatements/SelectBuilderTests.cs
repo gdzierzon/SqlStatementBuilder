@@ -7,7 +7,7 @@ using dbo = TestDatabase.Dbo;
 namespace SqlStatementBuilder.Test.SelectStatements
 {
     [TestClass]
-    public class SelectBuilderTests:SqlBuilder
+    public class SelectBuilderTests: SqlBuilder
     {
 
         [TestMethod]

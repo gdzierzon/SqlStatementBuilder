@@ -60,7 +60,7 @@ namespace SqlStatementBuilder.Statements.DML
             {
                 var columnNames = TableColumns.Select(c => c.ToString()).ToList();
                 var columns = string.Join(", ", columnNames.ToArray());
-                query.Append($" {columns}");
+                query.Append($" ({columns})");
             }
 
             if (values.Count > 0)
