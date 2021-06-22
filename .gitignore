@@ -15,3 +15,7 @@ SqlBuilder\.Test/obj/Debug/
 /SqlStatementBuilder/bin
 /SqlStatementBuilder.Test/bin
 /TestResults
+
+.vs/SqlStatementBuilder/v16/.suo
+
+SqlStatementBuilder.sln.DotSettings.user
